@@ -1,5 +1,8 @@
 package org.jboss.windup.bootstrap.commands.windup;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import org.jboss.windup.bootstrap.commands.Command;
 import org.jboss.windup.bootstrap.commands.CommandPhase;
 import org.jboss.windup.bootstrap.commands.CommandResult;
@@ -18,10 +21,15 @@ public class DisplayHelpCommand implements Command
 
         sb.append("\nWindup Options:\n");
 
+	SortedMap<String, String> optionNamesAndDescriptions = new TreeMap<String, String>();
         for (OptionDescription option : Help.load().getOptions())
         {
-            sb.append("--").append(option.getName()).append("\n");
-            sb.append("\t").append(option.getDescription()).append("\n");
+            optionNamesAndDescriptions.put(option.getName(), option.getDescription());
+        }
+
+        for (SortedMap.Entry<String, String> entry : optionNamesAndDescriptions.entrySet()) {
+            sb.append("--").append(entry.getKey()).append("\n");
+            sb.append("\t").append(entry.getValue()).append("\n");
         }
 
         sb.append("--listTags\n");
