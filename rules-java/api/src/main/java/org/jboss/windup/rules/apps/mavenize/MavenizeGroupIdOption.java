@@ -63,7 +63,7 @@ public class MavenizeGroupIdOption extends AbstractConfigurationOption
             return new ValidationResult(ValidationResult.Level.ERROR, NAME + " option must be a String, was: " + value.getClass().getName());
 
         String strValue = value.toString();
-        if (strValue.matches(REGEX_GROUP_ID))
+        if (!strValue.matches(REGEX_GROUP_ID))
             return new ValidationResult(ValidationResult.Level.ERROR, "Must follow the Maven groupId format - e.g. com.mycompany.groupId.");
 
         return ValidationResult.SUCCESS;
